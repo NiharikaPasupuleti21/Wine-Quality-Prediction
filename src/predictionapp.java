@@ -15,7 +15,7 @@ public class TestDecisionTreeModel {
         JavaSparkContext sc = new JavaSparkContext(conf);
         SparkSession spark = SparkSession.builder().appName("TestDecisionTreeModel").getOrCreate();
 
-        String validationDatasetPath = "app/ValidationDataset.csv";
+        String validationDatasetPath = "src/ValidationDataset.csv";
         Dataset<Row> validationData = spark.read().option("header", "true").option("delimiter", ";").csv(validationDatasetPath);
 
         StringIndexer labelIndexer = new StringIndexer().setInputCol("quality").setOutputCol("label");
@@ -26,7 +26,7 @@ public class TestDecisionTreeModel {
         VectorAssembler assembler = new VectorAssembler().setInputCols(featureColumns).setOutputCol("features");
         validationData = assembler.transform(validationData);
 
-        DecisionTreeClassificationModel model = DecisionTreeClassificationModel.load("path_to_your_model_directory");
+        DecisionTreeClassificationModel model = DecisionTreeClassificationModel.load("model_path");
 
         Dataset<Row> predictions = model.transform(validationData);
 
