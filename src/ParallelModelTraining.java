@@ -16,7 +16,7 @@ public class DecisionTreeSpark {
         JavaSparkContext sc = new JavaSparkContext(conf);
         SparkSession spark = SparkSession.builder().appName("DecisionTreeSpark").getOrCreate();
 
-        String datasetPath = "app/TrainingDataset.csv";
+        String datasetPath = "src/TrainingDataset.csv";
         Dataset<Row> data = spark.read().option("header", "true").option("delimiter", ";").csv(datasetPath);
 
         StringIndexer labelIndexer = new StringIndexer().setInputCol("quality").setOutputCol("label");
